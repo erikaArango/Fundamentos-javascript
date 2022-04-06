@@ -1,11 +1,13 @@
-const HtmlWebpack          = require('html-webpack-plugin')
+const HtmlWebpack    = require('html-webpack-plugin')
 const MiniCssExtract = require('mini-css-extract-plugin');
+//const CopyPlugin     = require("copy-webpack-plugin");
 
 module.exports = {
-    mode: 'development',
+    
+    mode: "development",
 
-    output:{
-        clean:true
+    output: {
+        clean: true
     },
 
     module: {
@@ -14,7 +16,7 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'html-loader',
                 options: {
-                    sources:false
+                    sources: false
                 }
             },
             {
@@ -30,6 +32,16 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)$/,
                 loader: 'file-loader'
             },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "babel-loader",
+                  options: {
+                    presets: ['@babel/preset-env']
+                  }
+                }
+            }
         ]
     },
 
@@ -39,12 +51,18 @@ module.exports = {
         new HtmlWebpack({
             title: 'Mi Webpack App',
             // filename: 'index.html',
-            template: './src/index.html'
+            template: './src/index.html',
+            
         }),
-
+        
         new MiniCssExtract({
             filename: '[name].css',
             ignoreOrder: false
         }),
+
+        // new CopyPlugin({
+        //     patterns: [
+        //         { from: 'src/assets/', to: 'assets/' }            ]
+        // })
     ]
 }
