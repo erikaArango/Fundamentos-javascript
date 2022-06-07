@@ -18,8 +18,10 @@ const heroeId2 = 'iron';
     
 // });
 
-buscarHeroe (heroeId1).then ( heroe => {
-    console.log (`enviando a ${heroe.nombre} a la mision`)
-});
+Promise.all([true,'hola',123]).then(arr => {
+    console.log('promise.all', arr);
+})
+
+
 
 console.log ('fin del programa')
